@@ -18,23 +18,22 @@ const SI = {
   php:        'M7.672 9.374c-.44 0-.746.11-.917.33-.17.22-.256.584-.256 1.095 0 .51.086.876.256 1.1.17.222.477.333.917.333h.76V9.374h-.76zm8.126 0c-.44 0-.746.11-.917.33-.17.22-.256.584-.256 1.095 0 .51.086.876.256 1.1.17.222.477.333.917.333h.76V9.374h-.76zM12 5.688C5.373 5.688 0 8.514 0 12s5.373 6.313 12 6.313S24 15.486 24 12c0-3.486-5.373-6.312-12-6.312zm-3.387 8.422H7.27v-1.61h-1.4v1.61H4.53V9.89h1.34v1.518H7.27V9.89h1.343v4.22zm3.354-1.358c0 .44-.088.796-.265 1.067-.176.272-.434.407-.773.407H9.61v1.25H8.272V9.89h2.657c.34 0 .597.135.773.406.177.27.265.626.265 1.066v1.39zm4.66 0c0 .44-.088.796-.265 1.067-.176.272-.434.407-.773.407h-1.317v1.25h-1.34V9.89h2.657c.34 0 .597.135.773.406.177.27.265.626.265 1.066v1.39zm3.705 1.358h-1.34v-1.61h-1.4v1.61h-1.343V9.89h1.343v1.518h1.4V9.89h1.34v4.22z',
 };
 
-// All skills as a flat tile list — icon, label, brand color, bg tint
 const SKILL_TILES = [
-  { label: 'React',          icon: 'react',      color: '#61DAFB', bg: '#0d2a35' },
-  { label: 'JavaScript',     icon: 'javascript', color: '#F7DF1E', bg: '#2a2600' },
-  { label: 'HTML5 & CSS3',   icon: 'html5',      color: '#E34F26', bg: '#2e1206' },
-  { label: 'TypeScript',     icon: 'typescript', color: '#3178C6', bg: '#0d1f38' },
-  { label: 'Node.js',        icon: 'nodejs',     color: '#339933', bg: '#0b2010' },
-  { label: 'PHP',            icon: 'php',        color: '#a78be8', bg: '#1e1535' },
-  { label: 'Supabase',       icon: 'supabase',   color: '#3ECF8E', bg: '#082a1e' },
-  { label: 'Firebase',       icon: 'firebase',   color: '#FFCA28', bg: '#2a2000' },
-  { label: 'MySQL',          icon: 'mysql',      color: '#4479A1', bg: '#0d1e2e' },
-  { label: 'PostgreSQL',     icon: 'postgresql', color: '#4169E1', bg: '#0d1435' },
-  { label: 'Git & GitHub',   icon: 'git',        color: '#F05032', bg: '#2e0e08' },
-  { label: 'VS Code',        icon: 'vscode',     color: '#007ACC', bg: '#001e33' },
-  { label: 'Vite',           icon: 'vite',       color: '#9a7fe8', bg: '#1a1535' },
-  { label: 'npm',            icon: 'npm',        color: '#CB3837', bg: '#2a0808' },
-  { label: 'Figma',          icon: 'figma',      color: '#F24E1E', bg: '#2e0e06' },
+  { label: 'React',        icon: 'react',      color: '#61DAFB', bg: '#0d2a35' },
+  { label: 'JavaScript',   icon: 'javascript', color: '#F7DF1E', bg: '#2a2600' },
+  { label: 'HTML5 & CSS3', icon: 'html5',      color: '#E34F26', bg: '#2e1206' },
+  { label: 'TypeScript',   icon: 'typescript', color: '#3178C6', bg: '#0d1f38' },
+  { label: 'Node.js',      icon: 'nodejs',     color: '#339933', bg: '#0b2010' },
+  { label: 'PHP',          icon: 'php',        color: '#a78be8', bg: '#1e1535' },
+  { label: 'Supabase',     icon: 'supabase',   color: '#3ECF8E', bg: '#082a1e' },
+  { label: 'Firebase',     icon: 'firebase',   color: '#FFCA28', bg: '#2a2000' },
+  { label: 'MySQL',        icon: 'mysql',      color: '#4479A1', bg: '#0d1e2e' },
+  { label: 'PostgreSQL',   icon: 'postgresql', color: '#4169E1', bg: '#0d1435' },
+  { label: 'Git & GitHub', icon: 'git',        color: '#F05032', bg: '#2e0e08' },
+  { label: 'VS Code',      icon: 'vscode',     color: '#007ACC', bg: '#001e33' },
+  { label: 'Vite',         icon: 'vite',       color: '#9a7fe8', bg: '#1a1535' },
+  { label: 'npm',          icon: 'npm',        color: '#CB3837', bg: '#2a0808' },
+  { label: 'Figma',        icon: 'figma',      color: '#F24E1E', bg: '#2e0e06' },
 ];
 
 const TIMELINE = [
@@ -51,33 +50,45 @@ const STATS = [
   { val: '2026',label: 'Expected Grad' },
 ];
 
-function SkillTile({ skill }) {
+// Infinite runner — duplicates tiles for seamless loop
+function SkillRunner() {
+  const doubled = [...SKILL_TILES, ...SKILL_TILES];
   return (
-    <div className="skill-tile" style={{
-      background: skill.bg,
-      border: '1px solid rgba(255,255,255,0.06)',
-      borderRadius: '14px',
-      padding: '16px 8px 12px',
-      display: 'flex', flexDirection: 'column',
-      alignItems: 'center', justifyContent: 'center',
-      gap: '10px', cursor: 'default',
-      transition: 'transform 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease',
-    }}>
-      <div style={{
-        width: '40px', height: '40px',
-        display: 'flex', alignItems: 'center', justifyContent: 'center',
-      }}>
-        <svg viewBox="0 0 24 24" width="32" height="32" fill={skill.color} aria-hidden="true">
-          <path d={SI[skill.icon]} />
-        </svg>
+    <div style={{ position: 'relative', overflow: 'hidden' }}>
+      {/* fade edges */}
+      <div style={{ position: 'absolute', top: 0, left: 0, bottom: 0, width: '60px', background: 'linear-gradient(to right, #050a14, transparent)', zIndex: 2, pointerEvents: 'none' }} />
+      <div style={{ position: 'absolute', top: 0, right: 0, bottom: 0, width: '60px', background: 'linear-gradient(to left, #050a14, transparent)', zIndex: 2, pointerEvents: 'none' }} />
+
+      <div className="skill-runner" style={{ display: 'flex', gap: '10px', width: 'max-content' }}>
+        {doubled.map((skill, i) => (
+          <div key={i} style={{
+            background: skill.bg,
+            border: '1px solid rgba(255,255,255,0.07)',
+            borderRadius: '12px',
+            padding: '10px 8px 8px',
+            display: 'flex', flexDirection: 'column',
+            alignItems: 'center', justifyContent: 'center',
+            gap: '8px',
+            /* 3rem tall × 1.8rem wide as requested — in pixels: ~48×29, scaled up to be legible */
+            width: '72px',
+            height: '72px',
+            flexShrink: 0,
+            cursor: 'default',
+          }}>
+            <svg viewBox="0 0 24 24" width="28" height="28" fill={skill.color} aria-hidden="true" style={{ flexShrink: 0 }}>
+              <path d={SI[skill.icon]} />
+            </svg>
+            <span style={{
+              fontFamily: "'DM Sans', sans-serif",
+              fontSize: '9px', fontWeight: 500,
+              color: 'rgba(200,230,220,0.65)',
+              textAlign: 'center', lineHeight: 1.2,
+              whiteSpace: 'nowrap', overflow: 'hidden',
+              textOverflow: 'ellipsis', maxWidth: '68px',
+            }}>{skill.label}</span>
+          </div>
+        ))}
       </div>
-      <span style={{
-        fontFamily: "'DM Sans', sans-serif",
-        fontSize: '11px', fontWeight: 500,
-        color: 'rgba(200,230,220,0.70)',
-        textAlign: 'center', lineHeight: 1.2,
-        letterSpacing: '0.01em',
-      }}>{skill.label}</span>
     </div>
   );
 }
@@ -101,27 +112,34 @@ export default function AboutPage() {
       <style>{`
         .reveal { opacity: 0; transform: translateY(28px); transition: opacity 0.65s cubic-bezier(.22,1,.36,1), transform 0.65s cubic-bezier(.22,1,.36,1); }
         .reveal.visible { opacity: 1; transform: none; }
-        .reveal-delay-1 { transition-delay: 0.12s; }
-        .reveal-delay-2 { transition-delay: 0.22s; }
-
-        .skill-tile:hover {
-          transform: translateY(-4px) scale(1.04);
-          border-color: rgba(99,217,180,0.25) !important;
-          box-shadow: 0 8px 24px rgba(0,0,0,0.4);
-        }
+        .reveal-delay-1 { transition-delay: 0.10s; }
+        .reveal-delay-2 { transition-delay: 0.20s; }
+        .reveal-delay-3 { transition-delay: 0.30s; }
 
         .stat-card { transition: transform 0.22s, border-color 0.22s; }
         .stat-card:hover { transform: translateY(-4px); border-color: rgba(99,217,180,0.30) !important; }
 
         @keyframes pulse-ring {
-          0%   { box-shadow: 0 0 0 0 rgba(99,217,180,0.45); }
-          70%  { box-shadow: 0 0 0 9px rgba(99,217,180,0); }
+          0%   { box-shadow: 0 0 0 0 rgba(99,217,180,0.50); }
+          70%  { box-shadow: 0 0 0 8px rgba(99,217,180,0); }
           100% { box-shadow: 0 0 0 0 rgba(99,217,180,0); }
         }
-        .pulse { animation: pulse-ring 2.4s ease-out infinite; }
+        .pulse-dot { animation: pulse-ring 2.4s ease-out infinite; }
+
+        @keyframes runnerScroll {
+          from { transform: translateX(0); }
+          to   { transform: translateX(-50%); }
+        }
+        .skill-runner {
+          animation: runnerScroll 28s linear infinite;
+        }
+        .skill-runner:hover {
+          animation-play-state: paused;
+        }
 
         @media (max-width: 768px) {
-          .about-grid    { grid-template-columns: 1fr !important; gap: 48px !important; }
+          .top-grid    { grid-template-columns: 1fr !important; gap: 32px !important; }
+          .timeline-grid { grid-template-columns: 1fr 1fr !important; }
           .about-section { padding: 80px 24px !important; }
         }
       `}</style>
@@ -136,81 +154,91 @@ export default function AboutPage() {
           position: 'relative', background: '#050a14', overflow: 'hidden',
         }}
       >
+        {/* Ambient glows */}
         <div style={{ position: 'absolute', width: '600px', height: '600px', borderRadius: '50%', background: 'radial-gradient(circle, rgba(99,217,180,0.04) 0%, transparent 70%)', top: '-100px', right: '-150px', pointerEvents: 'none' }} />
         <div style={{ position: 'absolute', width: '400px', height: '400px', borderRadius: '50%', background: 'radial-gradient(circle, rgba(74,144,217,0.04) 0%, transparent 70%)', bottom: '0px', left: '-100px', pointerEvents: 'none' }} />
         <div style={{ position: 'absolute', top: 0, left: 0, right: 0, height: '1px', background: 'linear-gradient(to right, transparent, rgba(99,217,180,0.15), transparent)' }} />
 
         <div style={{ maxWidth: '1060px', width: '100%', position: 'relative', zIndex: 1 }}>
 
-          {/* Heading */}
-          <div className="reveal" style={{ marginBottom: '72px' }}>
-            <span style={{ fontFamily: "'DM Sans', sans-serif", fontSize: '10px', fontWeight: 600, letterSpacing: '0.26em', textTransform: 'uppercase', color: '#63d9b4', display: 'flex', alignItems: 'center', gap: '10px', marginBottom: '16px' }}>
+          {/* ── Heading ── */}
+          <div className="reveal" style={{ marginBottom: '48px' }}>
+            <span style={{ fontFamily: "'DM Sans', sans-serif", fontSize: '10px', fontWeight: 600, letterSpacing: '0.26em', textTransform: 'uppercase', color: '#63d9b4', display: 'flex', alignItems: 'center', gap: '10px', marginBottom: '14px' }}>
               <span style={{ width: '28px', height: '1px', background: '#63d9b4', opacity: 0.6 }} />
               About Me
             </span>
-            <h2 style={{ fontFamily: "'Syne', sans-serif", fontSize: 'clamp(32px, 5vw, 56px)', fontWeight: 800, color: '#f0faf6', margin: 0, letterSpacing: '-0.025em', lineHeight: 1.05 }}>Who I Am</h2>
+            <h2 style={{ fontFamily: "'Syne', sans-serif", fontSize: 'clamp(32px, 5vw, 52px)', fontWeight: 800, color: '#f0faf6', margin: 0, letterSpacing: '-0.025em', lineHeight: 1.05 }}>Who I Am</h2>
           </div>
 
-          {/* Two-column grid */}
-          <div className="about-grid" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '64px', alignItems: 'start' }}>
-
-            {/* LEFT: Bio + Timeline + Stats */}
-            <div className="reveal reveal-delay-1">
-              <p style={{ fontFamily: "'DM Sans', sans-serif", fontSize: '15.5px', fontWeight: 300, lineHeight: 1.9, color: 'rgba(180,220,210,0.65)', marginBottom: '20px', marginTop: 0 }}>
-                I'm <strong style={{ color: '#f0faf6', fontWeight: 600 }}>Benive Ragodo</strong>, a junior web developer and Diploma of Information Technology student at Dumaguete Campus. I'm passionate about creating clean, functional, and user-friendly web experiences using modern JavaScript frameworks.
+          {/* ── Row 1: Bio (left) + Stats (right) ── */}
+          <div className="top-grid reveal reveal-delay-1" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '56px', alignItems: 'start', marginBottom: '48px' }}>
+            {/* Bio */}
+            <div>
+              <p style={{ fontFamily: "'DM Sans', sans-serif", fontSize: '15px', fontWeight: 300, lineHeight: 1.9, color: 'rgba(180,220,210,0.65)', marginBottom: '16px', marginTop: 0 }}>
+                I'm <strong style={{ color: '#f0faf6', fontWeight: 600 }}>Benive Ragodo</strong>, a junior web developer and Diploma of Information Technology student at Dumaguete Campus. Passionate about creating clean, functional, and user-friendly web experiences using modern JavaScript frameworks.
               </p>
-              <p style={{ fontFamily: "'DM Sans', sans-serif", fontSize: '15.5px', fontWeight: 300, lineHeight: 1.9, color: 'rgba(180,220,210,0.65)', marginBottom: '48px', marginTop: 0 }}>
+              <p style={{ fontFamily: "'DM Sans', sans-serif", fontSize: '15px', fontWeight: 300, lineHeight: 1.9, color: 'rgba(180,220,210,0.55)', margin: 0 }}>
                 I enjoy solving real-world problems with code and continuously learning new technologies. My current focus is mastering React and Supabase for full-stack web development.
               </p>
-
-              {/* Timeline */}
-              <div style={{ display: 'flex', flexDirection: 'column', marginBottom: '40px' }}>
-                {TIMELINE.map((item, i) => {
-                  const isLast = i === TIMELINE.length - 1;
-                  return (
-                    <div key={i} style={{ display: 'flex', gap: '20px', paddingBottom: '28px', position: 'relative' }}>
-                      {!isLast && <div style={{ position: 'absolute', left: '9px', top: '22px', bottom: 0, width: '1px', background: 'linear-gradient(to bottom, rgba(99,217,180,0.22), rgba(99,217,180,0.03))' }} />}
-                      <div className={isLast ? 'pulse' : ''} style={{ width: '20px', height: '20px', borderRadius: '50%', flexShrink: 0, background: isLast ? '#63d9b4' : 'rgba(99,217,180,0.08)', border: `2px solid ${isLast ? 'rgba(99,217,180,0.70)' : 'rgba(99,217,180,0.25)'}`, marginTop: '2px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-                        {isLast && <div style={{ width: '6px', height: '6px', borderRadius: '50%', background: '#050a14' }} />}
-                      </div>
-                      <div>
-                        <span style={{ fontSize: '10px', fontWeight: 600, letterSpacing: '0.14em', textTransform: 'uppercase', color: '#63d9b4', display: 'block', marginBottom: '4px' }}>{item.year}</span>
-                        <span style={{ fontFamily: "'Syne', sans-serif", fontSize: '14px', fontWeight: 700, color: '#f0faf6', display: 'block', marginBottom: '4px' }}>{item.title}</span>
-                        <span style={{ fontFamily: "'DM Sans', sans-serif", fontSize: '12.5px', fontWeight: 300, color: 'rgba(180,220,210,0.42)' }}>{item.sub}</span>
-                      </div>
-                    </div>
-                  );
-                })}
-              </div>
-
-              {/* Stats */}
-              <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '12px' }}>
-                {STATS.map(stat => (
-                  <div key={stat.label} className="stat-card" style={{ padding: '20px 16px', borderRadius: '14px', background: 'rgba(99,217,180,0.03)', border: '1px solid rgba(99,217,180,0.10)', textAlign: 'center' }}>
-                    <div style={{ fontFamily: "'Syne', sans-serif", fontSize: '26px', fontWeight: 800, color: '#63d9b4', lineHeight: 1 }}>{stat.val}</div>
-                    <div style={{ fontFamily: "'DM Sans', sans-serif", fontSize: '10px', fontWeight: 500, letterSpacing: '0.14em', textTransform: 'uppercase', color: 'rgba(180,220,210,0.30)', marginTop: '8px' }}>{stat.label}</div>
-                  </div>
-                ))}
-              </div>
             </div>
 
-            {/* RIGHT: Skills icon grid */}
-            <div className="reveal reveal-delay-2">
-              <h4 style={{ fontFamily: "'DM Sans', sans-serif", fontSize: '10px', fontWeight: 600, letterSpacing: '0.22em', textTransform: 'uppercase', color: 'rgba(99,217,180,0.50)', margin: '0 0 20px' }}>
-                Technologies & Tools
-              </h4>
-              <div style={{
-                display: 'grid',
-                gridTemplateColumns: 'repeat(4, 1fr)',
-                gap: '10px',
-              }}>
-                {SKILL_TILES.map(skill => (
-                  <SkillTile key={skill.label} skill={skill} />
-                ))}
-              </div>
+            {/* Stats */}
+            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '12px' }}>
+              {STATS.map(stat => (
+                <div key={stat.label} className="stat-card" style={{ padding: '22px 16px', borderRadius: '14px', background: 'rgba(99,217,180,0.03)', border: '1px solid rgba(99,217,180,0.10)', textAlign: 'center' }}>
+                  <div style={{ fontFamily: "'Syne', sans-serif", fontSize: '28px', fontWeight: 800, color: '#63d9b4', lineHeight: 1 }}>{stat.val}</div>
+                  <div style={{ fontFamily: "'DM Sans', sans-serif", fontSize: '10px', fontWeight: 500, letterSpacing: '0.14em', textTransform: 'uppercase', color: 'rgba(180,220,210,0.30)', marginTop: '8px' }}>{stat.label}</div>
+                </div>
+              ))}
             </div>
-
           </div>
+
+          {/* ── Divider ── */}
+          <div style={{ height: '1px', background: 'rgba(99,217,180,0.08)', marginBottom: '40px' }} />
+
+          {/* ── Row 2: Horizontal Timeline ── */}
+          <div className="reveal reveal-delay-2" style={{ marginBottom: '48px' }}>
+            <div style={{ fontSize: '10px', fontWeight: 600, letterSpacing: '0.22em', textTransform: 'uppercase', color: 'rgba(99,217,180,0.45)', marginBottom: '28px', fontFamily: "'DM Sans', sans-serif" }}>
+              My Journey
+            </div>
+
+            <div className="timeline-grid" style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: '0', position: 'relative' }}>
+              {/* connecting line */}
+              <div style={{ position: 'absolute', top: '9px', left: 'calc(12.5% + 10px)', right: 'calc(12.5% + 10px)', height: '1px', background: 'linear-gradient(to right, rgba(99,217,180,0.30), rgba(99,217,180,0.10))', zIndex: 0 }} />
+
+              {TIMELINE.map((item, i) => {
+                const isLast = i === TIMELINE.length - 1;
+                return (
+                  <div key={i} style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', textAlign: 'center', padding: '0 12px', position: 'relative', zIndex: 1 }}>
+                    {/* dot */}
+                    <div className={isLast ? 'pulse-dot' : ''} style={{
+                      width: '20px', height: '20px', borderRadius: '50%', flexShrink: 0, marginBottom: '14px',
+                      background: isLast ? '#63d9b4' : 'rgba(99,217,180,0.08)',
+                      border: `2px solid ${isLast ? 'rgba(99,217,180,0.70)' : 'rgba(99,217,180,0.25)'}`,
+                      display: 'flex', alignItems: 'center', justifyContent: 'center',
+                    }}>
+                      {isLast && <div style={{ width: '6px', height: '6px', borderRadius: '50%', background: '#050a14' }} />}
+                    </div>
+                    <span style={{ fontSize: '10px', fontWeight: 600, letterSpacing: '0.14em', textTransform: 'uppercase', color: '#63d9b4', display: 'block', marginBottom: '6px', fontFamily: "'DM Sans', sans-serif" }}>{item.year}</span>
+                    <span style={{ fontFamily: "'Syne', sans-serif", fontSize: '13px', fontWeight: 700, color: '#f0faf6', display: 'block', marginBottom: '6px' }}>{item.title}</span>
+                    <span style={{ fontFamily: "'DM Sans', sans-serif", fontSize: '11.5px', fontWeight: 300, color: 'rgba(180,220,210,0.40)', lineHeight: 1.5 }}>{item.sub}</span>
+                  </div>
+                );
+              })}
+            </div>
+          </div>
+
+          {/* ── Divider ── */}
+          <div style={{ height: '1px', background: 'rgba(99,217,180,0.08)', marginBottom: '28px' }} />
+
+          {/* ── Row 3: Infinite Tech Runner ── */}
+          <div className="reveal reveal-delay-3">
+            <div style={{ fontSize: '10px', fontWeight: 600, letterSpacing: '0.22em', textTransform: 'uppercase', color: 'rgba(99,217,180,0.45)', marginBottom: '18px', fontFamily: "'DM Sans', sans-serif" }}>
+              Technologies &amp; Tools
+            </div>
+            <SkillRunner />
+          </div>
+
         </div>
       </section>
     </>

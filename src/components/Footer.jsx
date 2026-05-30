@@ -292,7 +292,7 @@ export default function Footer() {
                   fontSize: '11px', fontWeight: 600,
                   letterSpacing: '0.12em', textTransform: 'uppercase',
                   color: '#63d9b4',
-                }}>Available for work</span>
+                }}>Available for work.</span>
               </div>
 
               <div style={{ display: 'flex', gap: '10px', flexWrap: 'wrap' }}>
