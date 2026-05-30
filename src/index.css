@@ -1,0 +1,40 @@
+:root {
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  color-scheme: dark;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+
+body {
+  margin: 0;
+  background: #050a14;
+  overflow-x: hidden;
+}
+
+/* ── THE FIX: remove the 1126px cap and the border-inline ── */
+#root {
+  width: 100%;
+  max-width: 100%;
+  margin: 0;
+  padding: 0;
+  border: none;          /* removes the white side lines */
+  min-height: 100svh;
+  display: flex;
+  flex-direction: column;
+  box-sizing: border-box;
+  text-align: unset;
+}
+
+h1, h2 { font-weight: 700; color: #f0faf6; }
+p { margin: 0; }
+
+::selection { background: rgba(99,217,180,0.25); color: #f0faf6; }
+
+::-webkit-scrollbar       { width: 5px; }
+::-webkit-scrollbar-track { background: #050a14; }
+::-webkit-scrollbar-thumb { background: rgba(99,217,180,0.30); border-radius: 4px; }
+::-webkit-scrollbar-thumb:hover { background: rgba(99,217,180,0.55); }
